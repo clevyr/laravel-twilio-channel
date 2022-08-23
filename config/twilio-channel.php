@@ -1,21 +1,8 @@
 <?php
 
-use Clevyr\LaravelTwilioChannel\Channels\TwilioChannel;
-
 // config for Clevyr/LaravelTwilioChannel
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Channel
-    |--------------------------------------------------------------------------
-    |
-    | A simple way to access the channel class, so you don't have to
-    | type it out everytime
-    |
-    */
-    'channel' => TwilioChannel::class,
-
     /*
     |--------------------------------------------------------------------------
     | Twilio Configuration
