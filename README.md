@@ -27,7 +27,7 @@ TWILIO_PHONE_NUMBER=
 Next, publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-twilio-channel-config"
+php artisan vendor:publish --provider="Clevyr\LaravelTwilioChannel\LaravelTwilioChannelServiceProvider"
 ```
 
 This is the contents of the published config file (without descriptive comments):
