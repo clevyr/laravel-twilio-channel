@@ -37,10 +37,10 @@ class TwilioChannel
             return;
         }
 
-        $this->from_phone_number = config('twilio.phone_number');
+        $this->from_phone_number = config('twilio-channel.phone_number');
 
-        $account_sid = config('twilio.sid');
-        $auth_token = config('twilio.auth_token');
+        $account_sid = config('twilio-channel.sid');
+        $auth_token = config('twilio-channel.auth_token');
 
         $this->client = new Client($account_sid, $auth_token);
     }
