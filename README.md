@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/clevyr/laravel-twilio-channel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/clevyr/laravel-twilio-channel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/clevyr/laravel-twilio-channel.svg?style=flat-square)](https://packagist.org/packages/clevyr/laravel-twilio-channel)
 
-A Laravel Notification channel for Twilio
+A Laravel Notification channel for [Twilio](https://www.twilio.com/)
 
 ## Installation
 
@@ -15,7 +15,16 @@ You can install the package via composer:
 composer require clevyr/laravel-twilio-channel
 ```
 
-You can publish the config file with:
+Configure an account on [Twilio](https://www.twilio.com/), and then add the
+following env vars:
+
+```
+TWILIO_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE_NUMBER=
+```
+
+Next, publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="laravel-twilio-channel-config"
