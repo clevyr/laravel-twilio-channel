@@ -4,6 +4,7 @@ namespace Clevyr\LaravelTwilioChannel\Channels;
 
 use Clevyr\LaravelTwilioChannel\Contracts\TwilioNotification;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
 
@@ -30,7 +31,7 @@ class TwilioChannel
      */
     public function __construct()
     {
-        if (\App::environment() == 'testing') {
+        if (App::environment() == 'testing') {
             // If we're in test mode, don't create a twilio client so that we
             // don't actually send texts.
             return;
