@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Clevyr\LaravelTwilioChannel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelTwilioChannelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-twilio-channel';
 
     public $description = 'My command';
 
