@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/clevyr/laravel-twilio-channel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/clevyr/laravel-twilio-channel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/clevyr/laravel-twilio-channel.svg?style=flat-square)](https://packagist.org/packages/clevyr/laravel-twilio-channel)
 
-A Laravel Notification channel for [Twilio](https://www.twilio.com/)
+A Laravel Notification channel for sending SMS messages with [Twilio](https://www.twilio.com/).
 
 ## Installation
 
@@ -47,6 +47,10 @@ In your Laravel notifications:
 * Add the `TwilioChannel` to your `via` return array value
 * Build a `toTwilio` function that returns a `TwilioMessage` object
 
+By default, the Twilio Channel will use your notifiable's `phone_number` field
+to send a phone number, which must be in a format such as `18884445555`. See
+below how to override this.
+
 ```php
 <?php
 
@@ -82,6 +86,23 @@ class MyNotification extends Notification implements TwilioNotification {
             ->line('Your first line.')
             ->line('A second line, with a break between the last line.');
     }
+```
+
+### Overriding the Notifiable Phone Number Field
+By default, `TwilioChannel` will use your notifiable's `phone_number` field
+to send an SMS message. To override this and use a different field, set the
+`twilioPhoneNumberField` instance variable in your notifiable class:
+
+```php
+class User extends Authenticatable
+{
+    public $twilioPhoneNumberField = 'primary_phone_number';
+
+    //
+}
+
+Now if you generate a notification from a `User` object, `TwilioChannel`
+will use the user's `primary_phone_number` field to send messages.
 ```
 
 ## Testing

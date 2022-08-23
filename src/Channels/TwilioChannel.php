@@ -64,9 +64,12 @@ class TwilioChannel
         $twilioMessage = $notification->toTwilio($notifiable);
 
         // Send the SMS message
-        $this->client->messages->create($notifiable->phone_number, [
-            'from' => $this->from_phone_number,
-            'body' => $twilioMessage->fullMessage(),
-        ]);
+        $this->client->messages->create(
+            $notifiable->{$notifiable->twilioPhoneNumberField ?? 'phone_number'},
+            [
+                'from' => $this->from_phone_number,
+                'body' => $twilioMessage->fullMessage(),
+            ]
+        );
     }
 }
