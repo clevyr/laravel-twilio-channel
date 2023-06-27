@@ -3,7 +3,6 @@
 namespace Clevyr\LaravelTwilioChannel\Channels;
 
 use Clevyr\LaravelTwilioChannel\Contracts\TwilioNotification;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
@@ -49,7 +48,6 @@ class TwilioChannel
      * Send the given notification.
      *
      * @param  mixed  $notifiable
-     * @param  \Clevyr\LaravelTwilioChannel\Contracts\TwilioNotification  $notification
      * @return void
      */
     public function send($notifiable, TwilioNotification $notification)

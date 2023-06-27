@@ -14,7 +14,6 @@ class TwilioMessage
     /**
      * Append an entry into the messages array.
      *
-     * @param  string  $text
      * @return \Clevyr\LaravelTwilioChannel\Messages\TwilioMessage
      */
     public function line(string $text)
