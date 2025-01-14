@@ -3,6 +3,7 @@
 namespace Clevyr\LaravelTwilioChannel\Channels;
 
 use Clevyr\LaravelTwilioChannel\Contracts\TwilioNotification;
+use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
@@ -61,13 +62,27 @@ class TwilioChannel
         // Get the message object from the notification
         $twilioMessage = $notification->toTwilio($notifiable);
 
+        // Get the phone number from the notification. Supports on-demand
+        // notifications, as well as normal notifiable notifications.
+        $phoneNumber = $this->getRecipientPhoneNumber($notifiable);
+
         // Send the SMS message
-        $this->client->messages->create(
-            $notifiable->{$notifiable->twilioPhoneNumberField ?? 'phone_number'},
-            [
-                'from' => $this->from_phone_number,
-                'body' => $twilioMessage->fullMessage(),
-            ]
-        );
+        $this->client->messages->create($phoneNumber, [
+            'from' => $this->from_phone_number,
+            'body' => $twilioMessage->fullMessage(),
+        ]);
+    }
+
+    private function getRecipientPhoneNumber(mixed $notifiable): string
+    {
+        if ($notifiable instanceof AnonymousNotifiable && array_key_exists('twilio', $notifiable->routes)) {
+            return strval($notifiable->routes['twilio']);
+        }
+
+        if ($notifiable->twilioPhoneNumberField !== null) {
+            return $notifiable->twilioPhoneNumberField;
+        }
+
+        return $notifiable->phone_number;
     }
 }
