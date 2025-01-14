@@ -3,7 +3,7 @@
 use Clevyr\LaravelTwilioChannel\Messages\TwilioMessage;
 
 beforeEach(function () {
-    $this->message = new TwilioMessage();
+    $this->message = new TwilioMessage;
 
     $this->message
         ->line('Line 1')

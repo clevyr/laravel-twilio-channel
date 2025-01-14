@@ -2,6 +2,4 @@
 
 namespace Clevyr\LaravelTwilioChannel;
 
-class LaravelTwilioChannel
-{
-}
+class LaravelTwilioChannel {}
