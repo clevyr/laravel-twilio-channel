@@ -66,6 +66,10 @@ class TwilioChannel
         // notifications, as well as normal notifiable notifications.
         $phoneNumber = $this->getRecipientPhoneNumber($notifiable);
 
+        if (empty($phoneNumber)) {
+            return;
+        }
+
         // Send the SMS message
         $this->client->messages->create($phoneNumber, [
             'from' => $this->from_phone_number,
@@ -73,10 +77,16 @@ class TwilioChannel
         ]);
     }
 
-    private function getRecipientPhoneNumber(mixed $notifiable): string
+    private function getRecipientPhoneNumber(mixed $notifiable): ?string
     {
-        if ($notifiable instanceof AnonymousNotifiable && array_key_exists('twilio', $notifiable->routes)) {
-            return strval($notifiable->routes['twilio']);
+        if ($notifiable instanceof AnonymousNotifiable) {
+            if (array_key_exists('twilio', $notifiable->routes)) {
+                return strval($notifiable->routes['twilio']);
+            }
+
+            // If a notification supports twilio, but the on-demand nature of
+            // the notification doesn't send choose to send via the channel.
+            return null;
         }
 
         if ($notifiable->twilioPhoneNumberField !== null) {
